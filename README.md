@@ -1,5 +1,7 @@
 ## Coin Detection App
 
+**Usage:** To change the picture you want to analyze, change the imgnum variable at the top of the main method. The pictures are stored in alphabetical order.
+
 **Todo:**
 * Count pennies
 * Compare ratios of other coins with pennies
