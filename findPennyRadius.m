@@ -8,12 +8,12 @@
 % averagePennyR: Average of the penny radii.
 %--------------------------------------------------------------------------
 
-function averagePennyR = findPennyRadius(pennyCenters, pennyRadii)
+function averagePennyR = findPennyRadius(pennyCenters, pennyRadii, img)
 if size(pennyCenters) == 0
+    %averagePennyR = calculatePennyRadius(img);
     msg = 'Error: No pennies in image';
     error(msg)
-end
-
-% Find the average penny radius
-averagePennyR = mean(pennyRadii);
+else
+    % Find the average penny radius
+    averagePennyR = mean(pennyRadii);
 end
