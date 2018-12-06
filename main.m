@@ -6,9 +6,10 @@
 % provided.
 %--------------------------------------------------------------------------
 
+function main(path)
 %% ---------------------------- Load images -------------------------------
 % Change this number to test different images (alphabetical sorting)
-imgnum = 2;
+imgnum = 1;
 
 % Check if test image folder is present
 test_imgs_dir = [pwd, '/test-images/'];
@@ -25,10 +26,10 @@ imagelist = imagelist(arrayfun(@(x) x.name(1) ~= '.', imagelist));
 
 % Get filename and load
 filename = fullfile(test_imgs_dir, imagelist(imgnum).name);
-img = imread(filename);
+img = imread(path); % CHANGE "path" TO "filename" TO BYPASS GUI INPUT
 
-% Scale down image and convert to gray
-img = imresize(img, 0.5);
+% Scale image and convert to gray
+img = fitWindow(img, 700, 900);
 grayimg = rgb2gray(img);
 
 % Make lighting uniform and binarize image
@@ -55,10 +56,10 @@ imgPenny(:,:,3) = double(imgPenny(:,:,3)).*penny_mask;
 
 % Check for pennies and return the average radius of all pennies in image
 averagePennyR = findPennyRadius(pennyCenters, pennyRadii, img);
-%imshow(imgPenny);
 
 %% ---------------------------- Detect Other Coins ------------------------
 % Show original image
+cla;
 imshow(img);
 hold on;
 

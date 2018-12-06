@@ -11,7 +11,7 @@
 function [centers, radii] = findCircles(bw)
 
 % Use imfindcircles to find all coins in bw image
-[centers,radii] = imfindcircles(bw, [50 300], 'Method', 'TwoStage', 'Sensitivity', 0.9);
+[centers,radii] = imfindcircles(bw, [30 300], 'Method', 'TwoStage', 'Sensitivity', 0.9);
 
 % Suppress warning from imfindcircles
 warning('off','last');

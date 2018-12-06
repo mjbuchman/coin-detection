@@ -10,7 +10,6 @@
 
 function averagePennyR = findPennyRadius(pennyCenters, pennyRadii, img)
 if size(pennyCenters) == 0
-    %averagePennyR = calculatePennyRadius(img);
     msg = 'Error: No pennies in image';
     error(msg)
 else

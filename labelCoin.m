@@ -10,13 +10,6 @@
 % Prints the value of the coin onto its face
 %--------------------------------------------------------------------------
 
-% function labelCoin(x,y,r)
-%     th = 0:pi/50:2*pi;
-%     xunit = r * cos(th) + x;
-%     yunit = r * sin(th) + y;
-%     plot(xunit, yunit, 'MarkerFaceColor', 'black');
-% end
-
 function labelCoin(x,y,r,value)
     txt = sprintf('%d',value);
     text(x,y,txt,'FontSize',r/2,'Color','red','FontWeight','bold','HorizontalAlignment','center');
