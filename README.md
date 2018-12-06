@@ -12,4 +12,4 @@
 * Angled/horizontal pics?
 * Other currencies?
 * Make presentation (due 12/10 at noon to TA)
-* Build website (due 12/12)
+* Build website (due 12/12) //I made a sample https://dkim355.github.io/cs534-coinproj.github.io/
