@@ -55,7 +55,7 @@ imgPenny(:,:,3) = double(imgPenny(:,:,3)).*penny_mask;
 [pennyCenters, pennyRadii] = findCircles(imgPenny);
 
 % Check for pennies and return the average radius of all pennies in image
-averagePennyR = findPennyRadius(pennyCenters, pennyRadii, img);
+[d, averagePennyR] = findPennyRadius(pennyCenters, pennyRadii, img);
 
 %% ---------------------------- Detect Other Coins ------------------------
 % Show original image
@@ -66,6 +66,28 @@ hold on;
 % Detect (and visualize) other coins
 [allCenters, allRadii] = findCircles(bw);
 
+%% --------------------- Manual Radius Error Checking ---------------------
+% If calculatePennyRadius needed to be called
+% Check if the found radius is within an acceptable range of any coin
+radiusFlag = 0;
+if d ~= 0
+    for i = 1:size(allRadii)
+        if (allRadii(i) > d - 4) && (allRadii(i) < d + 4)
+            radiusFlag = 1;
+        end
+    end
+end
+
+% If radius did not match any range, throw an error message and reset
+if ~radiusFlag
+    radiusError;
+    uiwait;
+    cla;
+    clearvars -except path;
+    imshow('resources/processing-screen.jpg');
+    main(path);
+end
+    
 %% ---------------------------- Count All Coins ---------------------------
 % Compare all radii to the penny and count total change
 % Also calls method to visually overlay value on each coin
