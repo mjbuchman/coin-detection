@@ -95,5 +95,4 @@ oFlag = 0;
 if strcmp(overlapString, ' Yes') 
     oFlag = 1; 
 end
-oFlag
 main(path, oFlag);

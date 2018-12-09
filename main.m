@@ -67,12 +67,17 @@ hold on;
 [allCenters, allRadii] = findCircles(bw);
 
 %% ----------------------- Detect Overlapping Coins -----------------------
-flag_error = findOverlap(allCenters, allRadii, img);
-if flag_error == 1
-    msg = "error"
-    error(msg);
+if oFlag
+    flag_error = findOverlap(allCenters, allRadii);
+    if flag_error == 1
+        overlapError;
+        uiwait;
+        cla;
+        clearvars;
+        imshow('resources/processing-screen.jpg');
+        uiwait;
+    end
 end
-
 %% --------------------- Manual Radius Error Checking ---------------------
 % If calculatePennyRadius needed to be called
 % Check if the found radius is within an acceptable range of any coin
