@@ -77,6 +77,7 @@ imgPenny(:,:,3) = double(imgPenny(:,:,3)).*penny_mask;
 [pennyCenters, pennyRadii] = findCircles(imgPenny);
 
 % Check for pennies and return the average radius of all pennies in image
+imshow(img);
 [d, averagePennyR] = findPennyRadius(pennyCenters, pennyRadii, img);
 
 %% ----------------------- Detect Overlapping Coins -----------------------
