@@ -28,8 +28,11 @@ imagelist = imagelist(arrayfun(@(x) x.name(1) ~= '.', imagelist));
 filename = fullfile(test_imgs_dir, imagelist(imgnum).name);
 img = imread(path); % CHANGE "path" TO "filename" TO BYPASS GUI INPUT
 
-% Scale image and convert to gray
+% Scale image to fit in window
 img = fitWindow(img, 544, 700);
+
+%% ----------------------- Edit Image Before Processing -----------------------
+% Convert image to grayscale
 grayimg = rgb2gray(img);
 
 % Make lighting uniform and binarize image
@@ -38,11 +41,30 @@ I = imtophat(grayimg,strel('disk',200));
 bw = imbinarize(I);
 bw = bwareaopen(bw, 50);
 
+
+% Find circles
+[allCenters, allRadii] = findCircles(bw);
+
+% Create mask
+x = 1:size(img,2);
+y = 1:size(img,1);
+[xx,yy] = meshgrid(x,y);
+mask = zeros(size(img,1), size(img,2));
+for i=1 : size(allRadii)
+    a = round(allCenters(i,1));
+    b = round(allCenters(i,2));
+    mask = mask | (hypot(xx-a, yy - b) <= allRadii(i));
+end
+
+% Multiply image by the mask to delete background
+img(:,:,1) = double(img(:,:,1)).*mask;
+img(:,:,2) = double(img(:,:,2)).*mask;
+img(:,:,3) = double(img(:,:,3)).*mask;
+
 %% ---------------------------- Find Pennies-------------------------------
 % Convert image to HSV (hue, saturation, value) to find the pennies
 hsv_image = rgb2hsv(img);
-BW_HSV = im2bw(hsv_image, 0.36);
-%BW_HSV = im2bw(hsv_image, 0.5); % Testing
+BW_HSV = im2bw(hsv_image, 0.25); % Was 0.36
 penny_mask = imfill(BW_HSV, 'holes');
 penny_mask = medfilt2(penny_mask, [10 10]);
 imgPenny = img;
@@ -57,16 +79,12 @@ imgPenny(:,:,3) = double(imgPenny(:,:,3)).*penny_mask;
 % Check for pennies and return the average radius of all pennies in image
 [d, averagePennyR] = findPennyRadius(pennyCenters, pennyRadii, img);
 
-%% ---------------------------- Detect Other Coins ------------------------
+%% ----------------------- Detect Overlapping Coins -----------------------
 % Show original image
 cla;
 imshow(img);
 hold on;
 
-% Detect (and visualize) other coins
-[allCenters, allRadii] = findCircles(bw);
-
-%% ----------------------- Detect Overlapping Coins -----------------------
 if oFlag
     flag_error = findOverlap(allCenters, allRadii);
     if flag_error == 1
