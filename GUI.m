@@ -87,4 +87,13 @@ cla;
 imshow('resources/processing-screen.jpg');
 [file, path] = uigetfile('.jpg');
 path = strcat(path,file);
-main(path);
+
+% Find the user overlap input and set 'oFlag' accordingly
+addr = get(handles.uibuttongroup1, 'SelectedObject');
+overlapString = get(addr, 'String');
+oFlag = 0;
+if strcmp(overlapString, ' Yes') 
+    oFlag = 1; 
+end
+oFlag
+main(path, oFlag);

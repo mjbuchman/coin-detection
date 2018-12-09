@@ -6,7 +6,7 @@
 % provided.
 %--------------------------------------------------------------------------
 
-function main(path)
+function main(path, oFlag)
 %% ---------------------------- Load images -------------------------------
 % Change this number to test different images (alphabetical sorting)
 imgnum = 1;
@@ -29,7 +29,7 @@ filename = fullfile(test_imgs_dir, imagelist(imgnum).name);
 img = imread(path); % CHANGE "path" TO "filename" TO BYPASS GUI INPUT
 
 % Scale image and convert to gray
-img = fitWindow(img, 700, 900);
+img = fitWindow(img, 544, 700);
 grayimg = rgb2gray(img);
 
 % Make lighting uniform and binarize image
@@ -84,9 +84,9 @@ if ~radiusFlag
     radiusError;
     uiwait;
     cla;
-    clearvars -except path;
+    clearvars -except path oFlag;
     imshow('resources/processing-screen.jpg');
-    main(path);
+    main(path, oFlag);
 end
     
 %% ---------------------------- Count All Coins ---------------------------
