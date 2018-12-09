@@ -14,7 +14,7 @@
 function [d,pennyRadius] = calculatePennyRadius(img, coinType)
     % Show image and allow user to select a diameter
     imshow(img);
-    h = imdistline;
+    h = imdistline(gca, [300 400], [277 277]);
     wait(h);
     
     % Calculate the radius of that coin
