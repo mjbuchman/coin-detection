@@ -69,8 +69,9 @@ hold on;
 %% --------------------- Manual Radius Error Checking ---------------------
 % If calculatePennyRadius needed to be called
 % Check if the found radius is within an acceptable range of any coin
-radiusFlag = 0;
+radiusFlag = 1;
 if d ~= 0
+    radiusFlag = 0;
     for i = 1:size(allRadii)
         if (allRadii(i) > d - 4) && (allRadii(i) < d + 4)
             radiusFlag = 1;
