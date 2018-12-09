@@ -13,9 +13,9 @@ function total = compareAndCount(averagePR, pennyCenters, centers, radii)
     total = 0;
  
     % Ratio constants - Found by dividing penny radius by other radius
-    QUARTER_HIGH_BOUND = .85;   % Ratio = .785
+    QUARTER_HIGH_BOUND = .81;   % Ratio = .785
     NICKEL_HIGH_BOUND = .97;    % Ratio = .8982
-    DIME_LOW_BOUND = 1.02;      % Ratio = 1.064
+    DIME_LOW_BOUND = 1;      % Ratio = 1.064
     
     % Iterate through list and determine coins value
     for i = 1:size(radii,1)
